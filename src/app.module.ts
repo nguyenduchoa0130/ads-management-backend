@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SurfaceTypeModule } from './modules/surface_type/surface_type.module';
+import { SurfaceTypeModule } from './modules/surface-type/surface-type.module';
+
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { SurfaceTypeModule } from './modules/surface_type/surface_type.module';
         uri: configService.get<string>('MONGODB_URI'),
       }),
     }),
-    SurfaceTypeModule,
+    SurfaceTypeModule
+    
    
   ],
   controllers: [],
