@@ -22,7 +22,7 @@ export class SurfaceTypeService {
   }
 
   findOne(id: string) {
-    const surfaceType = this.surfaceTypeModel.find({deleted_at:null, _id: id}).exec();
+    const surfaceType = this.surfaceTypeModel.findOne({deleted_at:null, _id: id}).exec();
 
     return surfaceType;
   }
