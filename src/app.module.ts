@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SurfaceTypeModule } from './modules/surface-type/surface-type.module';
 import { SpaceTypeModule } from './modules/space-type/space-type.module';
+import { SpaceFormatsModule } from './modules/space-formats/space-formats.module';
+import { ReportFormatsModule } from './modules/report-formats/report-formats.module';
 
 
 @Module({
@@ -16,7 +18,9 @@ import { SpaceTypeModule } from './modules/space-type/space-type.module';
       }),
     }),
     SurfaceTypeModule,
-    SpaceTypeModule
+    SpaceTypeModule,
+    SpaceFormatsModule,
+    ReportFormatsModule
     
    
   ],
