@@ -6,6 +6,7 @@ import { SpaceTypeModule } from './modules/space-type/space-type.module';
 import { SpaceFormatsModule } from './modules/space-format/space-formats.module';
 import { ReportFormatsModule } from './modules/report-format/report-formats.module';
 import { CompanyModule } from './modules/company/company.module';
+import { ReportModule } from './report/report.module';
 
 
 
@@ -24,7 +25,8 @@ import { CompanyModule } from './modules/company/company.module';
     SpaceTypeModule,
     SpaceFormatsModule,
     CompanyModule,
-    ReportFormatsModule
+    ReportFormatsModule,
+    ReportModule
   
     
    
