@@ -3,27 +3,29 @@ import { ReportFormatsService } from './report-formats.service';
 import { CreateReportFormatDto } from './dto/create-report-format.dto';
 import { UpdateReportFormatDto } from './dto/update-report-format.dto';
 
-@Controller('report-format')
+@Controller('api/report-format')
 export class ReportFormatsController {
   constructor(private readonly reportFormatsService: ReportFormatsService) {}
 
   @Post()
   create(@Body() createReportFormatDto: CreateReportFormatDto, @Res() res ) {
-    return this.reportFormatsService.create(createReportFormatDto);
+    const created =  this.reportFormatsService.create(createReportFormatDto);
 
-    // if(created) {
-    //   return res.status(200).json({
-    //     'msg': 'TẠO THÀNH CÔNG HÌNH THỨC REPORT' ,
-    //     'status': 'success',
-    //     responseData: created
-    //   });
-    // }
+    if(created) {
+      return res.status(200).json({
+        message: 'TẠO THÀNH CÔNG HÌNH THỨC REPORT' ,
+        status: 'success',
+        responseData: created
+      });
+    }
     
   }
 
   @Get()
-  findAll() {
-    return this.reportFormatsService.findAll();
+  async findAll(@Res() res) {
+    
+    const data = await this.reportFormatsService.findAll();
+    return await res.json({ "responseData": data });
   }
 
   @Get(':id')

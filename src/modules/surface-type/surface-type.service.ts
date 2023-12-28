@@ -35,8 +35,7 @@ export class SurfaceTypeService {
   }
 
   remove(id: string) {
-    const deletedSurfaceType = this.surfaceTypeModel.findByIdAndUpdate(id, { deleted_at: new Date() },
-    { new: true }).exec();
+    const deletedSurfaceType = this.surfaceTypeModel.findByIdAndDelete(id).exec();
 
     return deletedSurfaceType;
   }

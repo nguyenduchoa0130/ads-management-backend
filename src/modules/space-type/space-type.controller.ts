@@ -1,20 +1,31 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/common';
 import { SpaceTypeService } from './space-type.service';
 import { CreateSpaceTypeDto } from './dto/create-space-type.dto';
 import { UpdateSpaceTypeDto } from './dto/update-space-type.dto';
 
-@Controller('space-type')
+
+@Controller('api/space-type')
 export class SpaceTypeController {
-  constructor(private readonly spaceTypeService: SpaceTypeService) {}
+  constructor(private readonly spaceTypeService: SpaceTypeService) { }
 
   @Post()
-  create(@Body() createSpaceTypeDto: CreateSpaceTypeDto) {
-    return this.spaceTypeService.create(createSpaceTypeDto);
+  create(@Body() createSpaceTypeDto: CreateSpaceTypeDto, @Res() res) {
+    const result = this.spaceTypeService.create(createSpaceTypeDto);
+    if(result){
+      return res.json({
+        message: "TẠO MỚI LOẠI BIỂN QUẢNG CÁO THÀNH CÔNG",
+        status: "success",
+        responseData: result,
+      });
+    }
+    
+
   }
 
   @Get()
-  findAll() {
-    return this.spaceTypeService.findAll();
+  async findAll(@Res() res) {
+    const data = await this.spaceTypeService.findAll();
+    return await res.json({ "responseData": data });
   }
 
   @Get(':id')

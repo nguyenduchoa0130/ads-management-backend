@@ -4,7 +4,7 @@ import { CreateSurfaceTypeDto } from './dto/create-surface_type.dto';
 import { UpdateSurfaceTypeDto } from './dto/update-surface_type.dto';
 import { SurfaceType } from './surface-type.schema';
 
-@Controller('surface-type')
+@Controller('api/surface-type')
 export class SurfaceTypeController {
   constructor(private readonly surfaceTypeService: SurfaceTypeService) {}
 
@@ -17,7 +17,7 @@ export class SurfaceTypeController {
       return {
         message: "TẠO MỚI LOẠI BIỂN QUẢNG CÁO THÀNH CÔNG",
         status: "success",
-        
+        responseData: result,
       }
     }
 
@@ -25,8 +25,10 @@ export class SurfaceTypeController {
   }
 
   @Get()
-  findAll() {
-    return this.surfaceTypeService.findAll();
+  async findAll(@Res() res) {
+    
+    const data = await this.surfaceTypeService.findAll();
+    return await res.json({ "responseData": data });
   }
 
   @Get(':id')

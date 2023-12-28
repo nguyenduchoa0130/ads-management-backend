@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Res } from '@nestjs/common';
 import { SpaceFormatsService } from './space-formats.service';
 import { CreateSpaceFormatDto } from './dto/create-space-format.dto';
 import { UpdateSpaceFormatDto } from './dto/update-space-format.dto';
 
-@Controller('space-format')
+@Controller('api/space-format')
 export class SpaceFormatsController {
   constructor(private readonly spaceFormatsService: SpaceFormatsService) {}
 
@@ -13,8 +13,10 @@ export class SpaceFormatsController {
   }
 
   @Get()
-  findAll() {
-    return this.spaceFormatsService.findAll();
+  async findAll(@Res() res) {
+    
+    const data = await this.spaceFormatsService.findAll();
+    return await res.json({ "responseData": data });
   }
 
   @Get(':id')

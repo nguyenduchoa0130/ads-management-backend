@@ -12,8 +12,6 @@ export class SpaceTypeService {
 
   create(createSpaceTypeDto: CreateSpaceTypeDto) {
    return   this.SpaceTypeModel.create(createSpaceTypeDto);
-  
-   
   }
 
   findAll() {
@@ -25,10 +23,10 @@ export class SpaceTypeService {
   }
 
   update(id: string, updateSpaceTypeDto: UpdateSpaceTypeDto) {
-    return `This action updates a #${id} spaceType`;
+    this.SpaceTypeModel.findByIdAndUpdate(id, updateSpaceTypeDto).exec();
   }
 
   remove(id: string) {
-    return `This action removes a #${id} spaceType`;
+    return this.SpaceTypeModel.findByIdAndDelete(id).exec();
   }
 }

@@ -7,20 +7,11 @@ export type SurfaceTypeDocument = HydratedDocument<SurfaceType>;
 
 @Schema({
   collection:'surface_types',
-  timestamps: {
-		createdAt: 'created_at',
-		updatedAt: 'updated_at',
-	},
+  timestamps: true,
 })
 export class SurfaceType  {
   @Prop({required: true})
   name: string;
-
-  @Prop({ type: Date, default: null })
-  deleted_at: Date;
-
-  
-
 }
 
 export const SurfaceTypeSchema = SchemaFactory.createForClass(SurfaceType);
