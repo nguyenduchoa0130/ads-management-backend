@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Res, Req, Query } from '@nestjs/common';
 import { ReportService } from './report.service';
 import { Response } from 'express';
 import { CreateReportDto } from './dto/create-report.dto';
@@ -19,10 +19,11 @@ export class ReportController {
   }
 
   @Get()
-  async findAll(@Res() res: Response) {
+  async findAll(@Query() req: any, @Res() res: Response) {
     try {
-      const reports = await this.ReportService.findAll();
-      res.json({ responseData: reports, message: 'Reports retrieved successfully.' });
+     const reports = await this.ReportService.findAll(req);
+      
+     res.json({ responseData: reports, message: 'Reports retrieved successfully.' });
     } catch (error) {
       res.status(500).json({ responseData: null, message: 'Error retrieving reports.' });
     }
