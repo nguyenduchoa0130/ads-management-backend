@@ -6,14 +6,14 @@ import { SurfaceType } from '../../shared/schemas/surface-type.schema';
 
 @Controller('api/surface-type')
 export class SurfaceTypeController {
-  constructor(private readonly surfaceTypeService: SurfaceTypeService) {}
+  constructor(private readonly surfaceTypeService: SurfaceTypeService) { }
 
   @Post()
-  create(@Body() createSurfaceTypeDto: CreateSurfaceTypeDto) {
-   
-    const result =  this.surfaceTypeService.create(createSurfaceTypeDto);
+  async create(@Body() createSurfaceTypeDto: CreateSurfaceTypeDto) {
 
-    if(result){
+    const result = await this.surfaceTypeService.create(createSurfaceTypeDto);
+
+    if (result) {
       return {
         message: "TẠO MỚI LOẠI BIỂN QUẢNG CÁO THÀNH CÔNG",
         status: "success",
@@ -21,29 +21,30 @@ export class SurfaceTypeController {
       }
     }
 
-    
+
   }
 
   @Get()
   async findAll(@Res() res) {
-    
+
     const data = await this.surfaceTypeService.findAll();
     return await res.json({ "responseData": data });
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string, @Res() res){
+  async findOne(@Param('id') id: string, @Res() res) {
     const data = await this.surfaceTypeService.findOne(id);
-    return res.json({responseData: data, status: "success"});
+    return res.json({ responseData: data, status: "success" });
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSurfaceTypeDto: UpdateSurfaceTypeDto) {
-    if(this.surfaceTypeService.update(id, updateSurfaceTypeDto)){
+  async update(@Param('id') id: string, @Body() updateSurfaceTypeDto: UpdateSurfaceTypeDto) {
+    const result = await this.surfaceTypeService.update(id, updateSurfaceTypeDto)
+    if (result) {
       return {
         message: "CẬP NHẬT LOẠI BIỂN QUẢNG CÁO THÀNH CÔNG",
         status: "success",
-        
+        responseData: result
 
       }
     }
@@ -55,7 +56,7 @@ export class SurfaceTypeController {
     return {
       message: "XOÁ LOẠI BIỂN QUẢNG CÁO THÀNH CÔNG",
       status: "success",
-      
+
 
     }
   }

@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
-import { Company } from '../../shared/schemas/company.entity';
+import { Company } from '../../shared/schemas/company.schema';
 
 
 @Injectable()

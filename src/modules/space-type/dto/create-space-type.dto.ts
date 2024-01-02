@@ -1,1 +1,4 @@
-export class CreateSpaceTypeDto {}
+export class CreateSpaceTypeDto {
+  name: string;
+
+}

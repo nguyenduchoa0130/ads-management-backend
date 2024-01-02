@@ -9,8 +9,9 @@ export class SpaceTypeController {
   constructor(private readonly spaceTypeService: SpaceTypeService) { }
 
   @Post()
-  create(@Body() createSpaceTypeDto: CreateSpaceTypeDto, @Res() res) {
-    const result = this.spaceTypeService.create(createSpaceTypeDto);
+  async create(@Body() createSpaceTypeDto: CreateSpaceTypeDto, @Res() res) {
+   
+    const result =  await this.spaceTypeService.create(createSpaceTypeDto);
     if(result){
       return res.json({
         message: "TẠO MỚI LOẠI BIỂN QUẢNG CÁO THÀNH CÔNG",

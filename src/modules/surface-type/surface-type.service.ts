@@ -8,28 +8,28 @@ import { SurfaceType } from '../../shared/schemas/surface-type.schema';
 
 @Injectable()
 export class SurfaceTypeService {
-  constructor(@InjectModel('SurfaceType') private readonly surfaceTypeModel :Model<any>) {
-    
+  constructor(@InjectModel('SurfaceType') private readonly surfaceTypeModel: Model<any>) {
+
   }
 
-  create(createSurfaceTypeDto: CreateSurfaceTypeDto) {
-  const createdSurfaceType = new  this.surfaceTypeModel(createSurfaceTypeDto);
-  return createdSurfaceType.save();
+  async create(createSurfaceTypeDto: CreateSurfaceTypeDto) {
+    return await this.surfaceTypeModel.create(createSurfaceTypeDto);
+
   }
 
   findAll() {
-    return this.surfaceTypeModel.find({deleted_at: null}).exec();
+    return this.surfaceTypeModel.find({ deleted_at: null }).exec();
   }
 
   findOne(id: string) {
-    const surfaceType = this.surfaceTypeModel.findOne({deleted_at:null, _id: id}).exec();
+    const surfaceType = this.surfaceTypeModel.findOne({ deleted_at: null, _id: id }).exec();
 
     return surfaceType;
   }
 
   update(id: string, updateSurfaceTypeDto: UpdateSurfaceTypeDto) {
     const updated = this.surfaceTypeModel.findByIdAndUpdate(id, updateSurfaceTypeDto,
-    { new: true }).exec();
+      { new: true }).exec();
 
     return updated;
   }
