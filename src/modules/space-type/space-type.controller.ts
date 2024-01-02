@@ -34,8 +34,15 @@ export class SpaceTypeController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSpaceTypeDto: UpdateSpaceTypeDto) {
-    return this.spaceTypeService.update(id, updateSpaceTypeDto);
+  update(@Param('id') id: string, @Body() updateSpaceTypeDto: UpdateSpaceTypeDto, @Res() res) {
+    const result =  this.spaceTypeService.update(id, updateSpaceTypeDto);
+    if(result){
+      return res.json({
+        message: "CẬP NHẬT LOẠI BIỂN QUẢNG CÁO THÀNH CÔNG",
+        status: "success",
+        responseData: result,
+      });
+    }
   }
 
   @Delete(':id')

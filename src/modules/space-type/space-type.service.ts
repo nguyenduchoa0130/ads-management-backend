@@ -22,8 +22,8 @@ export class SpaceTypeService {
     return this.SpaceTypeModel.findById(id);
   }
 
-  update(id: string, updateSpaceTypeDto: UpdateSpaceTypeDto) {
-    this.SpaceTypeModel.findByIdAndUpdate(id, updateSpaceTypeDto).exec();
+  async update(id: string, updateSpaceTypeDto: UpdateSpaceTypeDto) {
+   return await this.SpaceTypeModel.findByIdAndUpdate(id, updateSpaceTypeDto).exec();
   }
 
   remove(id: string) {
