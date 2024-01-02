@@ -1,4 +1,4 @@
-import { Report } from './entities/report.entity';
+import { Report } from '../../shared/schemas/report.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { CreateReportDto } from './dto/create-report.dto';

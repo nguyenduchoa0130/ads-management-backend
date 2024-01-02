@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateReportFormatDto } from './dto/create-report-format.dto';
 import { UpdateReportFormatDto } from './dto/update-report-format.dto';
-import { ReportFormat } from './entities/report-format.entity';
+import { ReportFormat } from '../../shared/schemas/report-format.entity';
 
 
 @Injectable()

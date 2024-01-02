@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateSurfaceTypeDto } from './dto/create-surface_type.dto';
 import { UpdateSurfaceTypeDto } from './dto/update-surface_type.dto';
-import { SurfaceType } from './surface-type.schema';
+import { SurfaceType } from '../../shared/schemas/surface-type.schema';
 
 
 @Injectable()

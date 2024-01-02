@@ -1,4 +1,4 @@
-import { SpaceFormat, SpaceFormatSchema } from './entities/space-format.entity';
+import { SpaceFormat, SpaceFormatSchema } from '../../shared/schemas/space-format.entity';
 // src/space-formats/space-formats.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';

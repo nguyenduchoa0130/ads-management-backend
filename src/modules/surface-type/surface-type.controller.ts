@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/
 import { SurfaceTypeService } from './surface-type.service';
 import { CreateSurfaceTypeDto } from './dto/create-surface_type.dto';
 import { UpdateSurfaceTypeDto } from './dto/update-surface_type.dto';
-import { SurfaceType } from './surface-type.schema';
+import { SurfaceType } from '../../shared/schemas/surface-type.schema';
 
 @Controller('api/surface-type')
 export class SurfaceTypeController {
