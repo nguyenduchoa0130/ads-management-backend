@@ -25,7 +25,7 @@ export class ReportFormatsController {
   async findAll(@Res() res) {
     
     const data = await this.reportFormatsService.findAll();
-    return await res.json({ "responseData": data });
+    return await res.json({ responseData: data });
   }
 
   @Get(':id')

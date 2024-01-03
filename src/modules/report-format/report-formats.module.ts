@@ -1,4 +1,4 @@
-import { ReportFormat, ReportFormatSchema } from '../../shared/schemas/report-format.entity';
+import { ReportFormat, ReportFormatSchema } from '../../shared/schemas/report-format.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
 import { ReportFormatsService } from './report-formats.service';
