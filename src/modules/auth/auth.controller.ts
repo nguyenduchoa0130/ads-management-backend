@@ -9,31 +9,25 @@ import { UsersService } from '../users/users.service';
 
 @Controller()
 export class AuthController {
-  constructor(private authService: AuthService, private userService: UsersService) {}
+  constructor(private authService: AuthService, private userService: UsersService) { }
 
   @UseGuards(LocalStrategy)
   @Post('api/login')
   async login(@Body() req) {
-    
+
     return await this.authService.authentication(req.username, req.password);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('api/profile')
-  async getProfile(@Body() req) {
-    const user = await this.userService.findOneUsername(req.username);
-
-    delete user.password;
-
-    return {
-      responseData: user
-    };
+  async getProfile(@Request() req) {
+    return { message: "user profile", responseData: req.user };
   }
 
   //fucntion register user
   @Post('api/register')
   async registerUser(@Body() req: CreateUserDto) {
- 
+
     const users = await this.userService.findOneUsername(req.username);
     if (users) {
       throw new HttpException(
@@ -46,5 +40,5 @@ export class AuthController {
     req.password = await this.authService.hashPassword(req.password);
     return await this.userService.create(req);
   }
- 
+
 }

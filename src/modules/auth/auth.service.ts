@@ -36,7 +36,7 @@ export class AuthService {
     return  this.generateToken(user);
   }
 
-  async generateToken(user) {
+  generateToken(user) {
     const payload: AuthPayload = {
       username: user.username,
       email: user.email,
@@ -44,9 +44,16 @@ export class AuthService {
      
     };
 
+  
 
     return  { access_token: this.jwtService.sign(payload) };
+
   }
+
+  decodeToken(token){
+    return this.jwtService.decode(token);
+  }
+  
   async validate(username: string) {
     try {
       const users = await this.userService.findOneUsername(username);
