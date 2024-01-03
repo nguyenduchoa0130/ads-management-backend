@@ -24,8 +24,8 @@ export class UsersService {
   findOneEmail(email: string) {
     return this.userModel.findOne({email: email}).exec();
   }
-  findOneUsername(username: string) {
-    return this.userModel.findOne({username: username}).exec();
+  async findOneUsername(username: string) {
+    return await this.userModel.findOne({username: username}).exec();
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {

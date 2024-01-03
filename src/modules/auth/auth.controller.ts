@@ -20,8 +20,14 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('api/profile')
-  getProfile(@Request() req) {
-    return req.user;
+  async getProfile(@Body() req) {
+    const user = await this.userService.findOneUsername(req.username);
+
+    delete user.password;
+
+    return {
+      responseData: user
+    };
   }
 
   //fucntion register user
