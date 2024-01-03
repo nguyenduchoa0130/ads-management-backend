@@ -21,7 +21,8 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('api/profile')
   async getProfile(@Request() req) {
-    return { message: "user profile", responseData: req.user };
+    const user = await this.userService.findOne(req.user._id);
+    return { message: "user profile", responseData: user };
   }
 
   //fucntion register user
