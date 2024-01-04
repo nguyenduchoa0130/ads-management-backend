@@ -10,6 +10,8 @@ import { CompanyModule } from './modules/company/company.module';
 import { ReportModule } from './modules/report/report.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { SurfacesModule } from './modules/surfaces/surfaces.module';
+import { SpacesModule } from './modules/spaces/spaces.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { AuthModule } from './modules/auth/auth.module';
     ReportModule,
     UsersModule,
     AuthModule,
+    SurfacesModule,
+    SpacesModule,
   ],
   controllers: [],
   providers: [],
