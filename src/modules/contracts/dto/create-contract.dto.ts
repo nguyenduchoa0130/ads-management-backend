@@ -1,5 +1,6 @@
 // create-contract.dto.ts
-import { IsNotEmpty, IsMongoId } from 'class-validator';
+import { Exclude } from 'class-transformer';
+import { IsNotEmpty, IsMongoId, IsDate, IsDateString } from 'class-validator';
 
 export class CreateContractDto {
   @IsNotEmpty()
@@ -18,4 +19,7 @@ export class CreateContractDto {
 
   @IsNotEmpty()
   end_date: Date;
+
+  @Exclude()
+  _id: string;
 }

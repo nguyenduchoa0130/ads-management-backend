@@ -9,7 +9,7 @@ export class ContractsController {
   constructor(private readonly contractsService: ContractsService) {}
 
   private formatResponse(message: string, responseData?: any) {
-    return { message, responseData };
+    return { message: message, responseData };
   }
 
   @Get()

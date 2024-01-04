@@ -1,6 +1,12 @@
+import { IsNotEmpty, isNotEmpty } from "class-validator";
+
 export class CreateCompanyDto {
-  readonly phone: string;
-  readonly email: string;
-  readonly address: string;
-  readonly name: string;
+  @IsNotEmpty()
+  phone: string;
+  @IsNotEmpty()
+  email: string;
+  @IsNotEmpty()
+  address: string;
+  @IsNotEmpty()
+  name: string;
 }
