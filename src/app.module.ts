@@ -72,7 +72,7 @@ import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
           maxSize: '20m',
           maxFiles: '2d',
         }),
-        new LogtailTransport(new Logtail(process.env.LOGTAIL_TOKEN)),
+        // new LogtailTransport(new Logtail(process.env.LOGTAIL_TOKEN)),
       ],
       exitOnError: false,
     }),
