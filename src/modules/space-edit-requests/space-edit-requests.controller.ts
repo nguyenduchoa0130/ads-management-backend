@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+// space-edit-requests/space-edit-requests.controller.ts
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { SpaceEditRequestsService } from './space-edit-requests.service';
 import { CreateSpaceEditRequestDto } from './dto/create-space-edit-request.dto';
 import { UpdateSpaceEditRequestDto } from './dto/update-space-edit-request.dto';
 
-@Controller('space-edit-requests')
+@Controller('api/space-edit-requests')
 export class SpaceEditRequestsController {
   constructor(private readonly spaceEditRequestsService: SpaceEditRequestsService) {}
 
-  @Post()
-  create(@Body() createSpaceEditRequestDto: CreateSpaceEditRequestDto) {
-    return this.spaceEditRequestsService.create(createSpaceEditRequestDto);
-  }
-
   @Get()
-  findAll() {
-    return this.spaceEditRequestsService.findAll();
+  async findAll() {
+    const spaceEditRequests = await this.spaceEditRequestsService.findAll();
+    return { message: 'Space Edit Requests retrieved successfully', responseData: spaceEditRequests };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.spaceEditRequestsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const spaceEditRequest = await this.spaceEditRequestsService.findOne(id);
+    return { message: 'Space Edit Request found successfully', responseData: spaceEditRequest };
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSpaceEditRequestDto: UpdateSpaceEditRequestDto) {
-    return this.spaceEditRequestsService.update(+id, updateSpaceEditRequestDto);
+  @Post()
+  async create(@Body() createSpaceEditRequestDto: CreateSpaceEditRequestDto) {
+    const newSpaceEditRequest = await this.spaceEditRequestsService.create(createSpaceEditRequestDto);
+    return { message: 'Space Edit Request created successfully', responseData: newSpaceEditRequest };
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateSpaceEditRequestDto: UpdateSpaceEditRequestDto) {
+    const updatedSpaceEditRequest = await this.spaceEditRequestsService.update(id, updateSpaceEditRequestDto);
+    return { message: 'Space Edit Request updated successfully', responseData: updatedSpaceEditRequest };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.spaceEditRequestsService.remove(+id);
+  async delete(@Param('id') id: string) {
+    const deletedSpaceEditRequest = await this.spaceEditRequestsService.delete(id);
+    return { message: 'Space Edit Request deleted successfully', responseData: deletedSpaceEditRequest };
   }
 }

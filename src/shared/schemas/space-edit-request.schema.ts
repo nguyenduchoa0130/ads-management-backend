@@ -1,5 +1,5 @@
-import { Prop, Schema } from "@nestjs/mongoose";
-import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document, HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { Ward } from "./ward.schema";
 import { SpaceFormat } from "./space-format.schema";
 import { SpaceType } from "./space-type.schema";
@@ -33,3 +33,6 @@ export class SpaceEditRequest extends Document {
   space: Space
   
 }
+
+
+export const SpaceEditRequestSchema = SchemaFactory.createForClass(SpaceEditRequest);

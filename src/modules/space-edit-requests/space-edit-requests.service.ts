@@ -1,26 +1,51 @@
-import { Injectable } from '@nestjs/common';
+// space-edit-requests/space-edit-requests.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
 import { CreateSpaceEditRequestDto } from './dto/create-space-edit-request.dto';
 import { UpdateSpaceEditRequestDto } from './dto/update-space-edit-request.dto';
+import { SpaceEditRequest } from 'src/shared/schemas/space-edit-request.schema';
 
 @Injectable()
 export class SpaceEditRequestsService {
-  create(createSpaceEditRequestDto: CreateSpaceEditRequestDto) {
-    return 'This action adds a new spaceEditRequest';
-  }
+  constructor(
+    @InjectModel(SpaceEditRequest.name)
+    private readonly spaceEditRequestModel: Model<SpaceEditRequest>,
+  ) {}
 
   findAll() {
-    return `This action returns all spaceEditRequests`;
+    return this.spaceEditRequestModel.find().populate('type format ward space').exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} spaceEditRequest`;
+  findOne(id: string) {
+    return this.spaceEditRequestModel.findById(id).populate('type format ward space').exec();
   }
 
-  update(id: number, updateSpaceEditRequestDto: UpdateSpaceEditRequestDto) {
-    return `This action updates a #${id} spaceEditRequest`;
+  create(createSpaceEditRequestDto: CreateSpaceEditRequestDto) {
+    const newSpaceEditRequest = new this.spaceEditRequestModel(createSpaceEditRequestDto);
+    return newSpaceEditRequest.save();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} spaceEditRequest`;
+  async update(id: string, updateSpaceEditRequestDto: UpdateSpaceEditRequestDto) {
+    const existingSpaceEditRequest = await this.spaceEditRequestModel.findByIdAndUpdate(
+      id,
+      updateSpaceEditRequestDto,
+      { new: true },
+    ).populate('type format ward space').exec();
+
+    if (!existingSpaceEditRequest) {
+      throw new NotFoundException(`Space Edit Request with id ${id} not found`);
+    }
+
+    return existingSpaceEditRequest;
+  }
+
+  async delete(id: string) {
+    const deletedSpaceEditRequest = await this.spaceEditRequestModel.findByIdAndDelete(id);
+    if (!deletedSpaceEditRequest) {
+      throw new NotFoundException(`Space Edit Request with id ${id} not found`);
+    }
+    return deletedSpaceEditRequest;
   }
 }
