@@ -22,6 +22,9 @@ import { SurfacesModule } from './modules/surfaces/surfaces.module';
 import { UsersModule } from './modules/users/users.module';
 import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
 import { WardsModule } from './modules/wards/wards.module';
+import { SpaceEditRequestsModule } from './modules/space-edit-requests/space-edit-requests.module';
+import { SurfaceEditRequestsModule } from './modules/surface-edit-requests/surface-edit-requests.module';
+import { ContractsModule } from './modules/contracts/contracts.module';
 
 @Module({
   imports: [
@@ -78,6 +81,10 @@ import { WardsModule } from './modules/wards/wards.module';
       ],
       exitOnError: false,
     }),
+    SpaceEditRequestsModule,
+    SurfaceEditRequestsModule,
+    ContractsModule,
+
   ],
   controllers: [],
   providers: [],
