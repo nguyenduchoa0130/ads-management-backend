@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+// surfaces.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
 import { CreateSurfaceDto } from './dto/create-surface.dto';
 import { UpdateSurfaceDto } from './dto/update-surface.dto';
+import { Surface } from 'src/shared/schemas/surface.schema';
 
 @Injectable()
 export class SurfacesService {
-  create(createSurfaceDto: CreateSurfaceDto) {
-    return 'This action adds a new surface';
-  }
+  constructor(@InjectModel(Surface.name) private readonly surfaceModel: Model<Surface>) {}
 
   findAll() {
-    return `This action returns all surfaces`;
+    return this.surfaceModel.find().populate('type space').exec();
+  }
+  findOne(id: string) {
+    return this.surfaceModel.findById(id).populate('type space').exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} surface`;
+  create(createSurfaceDto: CreateSurfaceDto) {
+    const newSurface = new this.surfaceModel(createSurfaceDto);
+    return newSurface.save();
   }
 
-  update(id: number, updateSurfaceDto: UpdateSurfaceDto) {
-    return `This action updates a #${id} surface`;
+  async update(id: string, updateSurfaceDto: UpdateSurfaceDto) {
+    const existingSurface = await this.surfaceModel.findByIdAndUpdate(id, updateSurfaceDto, { new: true });
+    if (!existingSurface) {
+      throw new NotFoundException(`Surface with id ${id} not found`);
+    }
+    return existingSurface;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} surface`;
+  async delete(id: string) {
+    const deletedSurface = await this.surfaceModel.findByIdAndDelete(id);
+    if (!deletedSurface) {
+      throw new NotFoundException(`Surface with id ${id} not found`);
+    }
+    return deletedSurface;
   }
 }

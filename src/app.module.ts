@@ -21,6 +21,7 @@ import { SurfaceTypeModule } from './modules/surface-type/surface-type.module';
 import { SurfacesModule } from './modules/surfaces/surfaces.module';
 import { UsersModule } from './modules/users/users.module';
 import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
+import { WardsModule } from './modules/wards/wards.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { LoggerMiddleware } from './shared/middlewares/logger.middleware';
     AuthModule,
     SurfacesModule,
     SpacesModule,
+    WardsModule,
     WinstonModule.forRoot({
       transports: [
         new winston.transports.Console({

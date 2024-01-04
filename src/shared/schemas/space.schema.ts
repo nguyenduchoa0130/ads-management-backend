@@ -1,14 +1,16 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Schema as MongooseSchema } from 'mongoose';
+import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { Ward } from "./ward.schema";
 import { SpaceFormat } from "./space-format.schema";
 import { SpaceType } from "./space-type.schema";
 
+export type SpaceDocument = HydratedDocument<SpaceType>;
 @Schema({
   collection: 'spaces',
   timestamps: true
 })
-export class Space extends Document {
+
+export class Space  {
   @Prop({ required: true })
   long: string
 
@@ -18,13 +20,13 @@ export class Space extends Document {
   @Prop({ required: true })
   address: string
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'space-types' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'SpaceType' })
   type: SpaceType
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'space-formats' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'SpaceFormat' })
   format: SpaceFormat
 
-  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'wards' })
+  @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Ward' })
   ward: Ward
 
 }

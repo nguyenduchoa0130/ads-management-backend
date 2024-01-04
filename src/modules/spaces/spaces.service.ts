@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+// spaces.service.ts
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateSpaceDto } from './dto/create-space.dto';
 import { UpdateSpaceDto } from './dto/update-space.dto';
+import { Space } from 'src/shared/schemas/space.schema';
 
 @Injectable()
 export class SpacesService {
-  create(createSpaceDto: CreateSpaceDto) {
-    return 'This action adds a new space';
-  }
+  constructor(@InjectModel(Space.name) private readonly spaceModel: Model<Space>) { }
 
   findAll() {
-    return `This action returns all spaces`;
+    return this.spaceModel.find().populate('ward type format').exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} space`;
+  create(createSpaceDto: CreateSpaceDto) {
+    const newSpace = new this.spaceModel(createSpaceDto);
+    return newSpace.save();
   }
 
-  update(id: number, updateSpaceDto: UpdateSpaceDto) {
-    return `This action updates a #${id} space`;
+  findOne(id) {
+    return this.spaceModel.findById(id);
+  }
+  async update(id: string, updateSpaceDto: UpdateSpaceDto) {
+    const existingSpace = await this.spaceModel.findByIdAndUpdate(id, updateSpaceDto, { new: true });
+    if (!existingSpace) {
+      throw new NotFoundException(`Space with id ${id} not found`);
+    }
+    return existingSpace;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} space`;
+  async delete(id: string) {
+    const deletedSpace = await this.spaceModel.findByIdAndDelete(id);
+    if (!deletedSpace) {
+      throw new NotFoundException(`Space with id ${id} not found`);
+    }
+    return deletedSpace;
   }
 }

@@ -6,9 +6,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   name: string;
 
-
-
-
   @IsNotEmpty()
   username: string;
 

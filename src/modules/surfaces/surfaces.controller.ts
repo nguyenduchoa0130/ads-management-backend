@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+// surfaces.controller.ts
+import { Controller, Get, Post, Body, Put, Patch, Param, Delete } from '@nestjs/common';
 import { SurfacesService } from './surfaces.service';
 import { CreateSurfaceDto } from './dto/create-surface.dto';
 import { UpdateSurfaceDto } from './dto/update-surface.dto';
@@ -8,27 +9,32 @@ export class SurfacesController {
   constructor(private readonly surfacesService: SurfacesService) {}
 
   @Post()
-  create(@Body() createSurfaceDto: CreateSurfaceDto) {
-    return this.surfacesService.create(createSurfaceDto);
+  async create(@Body() createSurfaceDto: CreateSurfaceDto) {
+    const responseData = await this.surfacesService.create(createSurfaceDto);
+    return { message: 'Surface created successfully', responseData };
   }
 
   @Get()
-  findAll() {
-    return this.surfacesService.findAll();
+  async findAll() {
+    const responseData = await this.surfacesService.findAll();
+    return { message: 'Surfaces retrieved successfully', responseData };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.surfacesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const responseData = await this.surfacesService.findOne(id);
+    return { message: 'Surface found successfully', responseData };
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSurfaceDto: UpdateSurfaceDto) {
-    return this.surfacesService.update(+id, updateSurfaceDto);
+  async update(@Param('id') id: string, @Body() updateSurfaceDto: UpdateSurfaceDto) {
+    const responseData = await this.surfacesService.update(id, updateSurfaceDto);
+    return { message: 'Surface updated successfully', responseData };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.surfacesService.remove(+id);
+  async delete(@Param('id') id: string) {
+    const responseData = await this.surfacesService.delete(id);
+    return { message: 'Surface deleted successfully', responseData };
   }
 }

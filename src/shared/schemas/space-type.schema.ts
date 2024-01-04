@@ -3,7 +3,7 @@ import { HydratedDocument } from "mongoose";
 
 export type SpaceTypeDocument = HydratedDocument<SpaceType>;
 
-@Schema({collection: 'space-types', timestamps: true})
+@Schema({collection: 'space_types', timestamps: true})
 export class SpaceType {
   @Prop({required: true})
   name:string

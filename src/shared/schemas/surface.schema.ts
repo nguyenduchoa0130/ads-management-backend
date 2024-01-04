@@ -1,6 +1,6 @@
 
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Schema as MongooseSchema } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 import { SurfaceType } from "./surface-type.schema";
 import { Space } from "./space.schema";
 
@@ -25,19 +25,16 @@ export class Surface extends Document {
   height: number
 
   @Prop({ required: true })
-  img_url_1: string
+  img_url: string
 
-  
-  @Prop({ required: true })
-  img_url_2: string
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'surface-types' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'SurfaceType' })
   type: SurfaceType
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'spaces' , required: true})
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Space' , required: true})
   space: Space
 
 
 
 }
-export const SurfaceSchema = SchemaFactory.createForClass(Space);
+export const SurfaceSchema = SchemaFactory.createForClass(Surface);

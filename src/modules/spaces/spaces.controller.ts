@@ -7,28 +7,27 @@ import { UpdateSpaceDto } from './dto/update-space.dto';
 export class SpacesController {
   constructor(private readonly spacesService: SpacesService) {}
 
-  @Post()
-  create(@Body() createSpaceDto: CreateSpaceDto) {
-    return this.spacesService.create(createSpaceDto);
-  }
-
   @Get()
-  findAll() {
-    return this.spacesService.findAll();
+  async findAll() {
+    const responseData = await this.spacesService.findAll();
+    return { message: 'Spaces retrieved successfully', responseData: responseData };
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.spacesService.findOne(+id);
+  @Post()
+  async create(@Body() createSpaceDto: CreateSpaceDto) {
+    const responseData = await this.spacesService.create(createSpaceDto);
+    return { message: 'Space created successfully', responseData: responseData };
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSpaceDto: UpdateSpaceDto) {
-    return this.spacesService.update(+id, updateSpaceDto);
+  async update(@Param('id') id: string, @Body() updateSpaceDto: UpdateSpaceDto) {
+    const responseData = await this.spacesService.update(id, updateSpaceDto);
+    return { message: 'Space updated successfully', responseData: responseData };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.spacesService.remove(+id);
+  async delete(@Param('id') id: string) {
+    const responseData = await this.spacesService.delete(id);
+    return { message: 'Space deleted successfully', responseData: responseData };
   }
 }
