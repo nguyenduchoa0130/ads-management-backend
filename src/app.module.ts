@@ -25,6 +25,8 @@ import { WardsModule } from './modules/wards/wards.module';
 import { SpaceEditRequestsModule } from './modules/space-edit-requests/space-edit-requests.module';
 import { SurfaceEditRequestsModule } from './modules/surface-edit-requests/surface-edit-requests.module';
 import { ContractsModule } from './modules/contracts/contracts.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -84,7 +86,10 @@ import { ContractsModule } from './modules/contracts/contracts.module';
     SpaceEditRequestsModule,
     SurfaceEditRequestsModule,
     ContractsModule,
-
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public/'),
+      serveRoot: '/public',
+    }),
   ],
   controllers: [],
   providers: [],

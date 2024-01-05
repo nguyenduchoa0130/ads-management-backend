@@ -5,33 +5,23 @@ import { Exclude, Expose } from 'class-transformer';
 export class CreateSurfaceDto {
   @Expose()
   @IsNotEmpty()
-  @IsString()
+
   long: string;
 
   @Expose()
   @IsNotEmpty()
-  @IsString()
+
   lat: string;
 
   @Expose()
   @IsNotEmpty()
-  @IsString()
-  address: string;
 
-  @Expose()
-  @IsNotEmpty()
-  @IsNumber()
   width: number;
 
   @Expose()
   @IsNotEmpty()
-  @IsNumber()
-  height: number;
 
-  @Expose()
-  @IsNotEmpty()
-  @IsString()
-  img_url: string;
+  height: number;
 
   @Expose()
   @IsNotEmpty()
@@ -43,6 +33,10 @@ export class CreateSurfaceDto {
   @IsMongoId()
   space: string;
 
+  img_url: any;
+
   @Exclude()
   _id: string
+
+  
 }

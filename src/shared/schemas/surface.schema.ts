@@ -16,9 +16,6 @@ export class Surface extends Document {
   lat: string
 
   @Prop({ required: true })
-  address: string
-
-  @Prop({ required: true })
   width: number
 
   @Prop({ required: true })
