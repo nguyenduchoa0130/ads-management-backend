@@ -28,6 +28,8 @@ export class SurfaceEditRequest extends Document{
   @Prop({ required: true })
   reason: string
 
+  @Prop({ required: true })
+  request_date: Date
   
 
 

@@ -33,4 +33,7 @@ export class CreateSurfaceEditRequestDto {
 
   @IsNotEmpty()
   surface: string;
+
+  @IsNotEmpty()
+  request_date: Date;
 }

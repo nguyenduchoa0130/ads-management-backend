@@ -15,6 +15,9 @@ export class CreateSpaceEditRequestDto {
   reason: string;
 
   @IsNotEmpty()
+  request_date: Date;
+
+  @IsNotEmpty()
   @IsMongoId()
   type: string;
 

@@ -32,6 +32,8 @@ export class SpaceEditRequest extends Document {
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Space' })
   space: Space
   
+  @Prop({ required: true })
+  request_date: Date
 }
 
 

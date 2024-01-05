@@ -1,5 +1,5 @@
 // surfaces.controller.ts
-import { Controller, Get, Post, Body, Put, Patch, Param, Delete, UseInterceptors, UploadedFile, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Patch, Param, Delete, UseInterceptors, UploadedFile, Res, BadRequestException } from '@nestjs/common';
 import { SurfacesService } from './surfaces.service';
 import { CreateSurfaceDto } from './dto/create-surface.dto';
 import { UpdateSurfaceDto } from './dto/update-surface.dto';
@@ -14,9 +14,13 @@ export class SurfacesController {
   @UseInterceptors(FileInterceptor('img_url', multerConfig))
   async create(@UploadedFile() file, @Body() createSurfaceDto: CreateSurfaceDto) {
 
+    if(file){
+      createSurfaceDto.img_url = file.path;
+    }else {
+      throw new BadRequestException('img_url not found')
+    }
     
-   
-    createSurfaceDto.img_url = file.path;
+    
     const responseData = await this.surfacesService.create(createSurfaceDto);
     return { message: 'Surface created successfully', responseData: responseData };
   }
