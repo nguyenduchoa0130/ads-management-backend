@@ -2,7 +2,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema({ collection: 'companies' }) // Set the custom collection name
+@Schema({ collection: 'companies', timestamps: true }) // Set the custom collection name
 export class Company extends Document {
   @Prop()
   phone: string;

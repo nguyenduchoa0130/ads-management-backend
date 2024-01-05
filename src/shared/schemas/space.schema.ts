@@ -29,5 +29,6 @@ export class Space  {
   @Prop({ required: true, type: MongooseSchema.Types.ObjectId, ref: 'Ward' })
   ward: Ward
 
+
 }
 export const SpaceSchema = SchemaFactory.createForClass(Space);

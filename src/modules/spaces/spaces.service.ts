@@ -10,8 +10,8 @@ import { Space } from 'src/shared/schemas/space.schema';
 export class SpacesService {
   constructor(@InjectModel(Space.name) private readonly spaceModel: Model<Space>) { }
 
-  findAll() {
-    return this.spaceModel.find().populate('ward type format').exec();
+  async findAll() {
+    return await this.spaceModel.find().populate({path: 'ward type format'}).exec();
   }
 
   create(createSpaceDto: CreateSpaceDto) {

@@ -2,11 +2,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 import { ReportFormat } from './report-format.schema';
+import { Surface } from './surface.schema';
 
-@Schema({collection:'reports'})
+@Schema({collection:'reports', timestamps: true})
 export class Report extends Document {
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'surfaces' })
-  surface: MongooseSchema.Types.ObjectId;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Surface' })
+  surface: Surface;
 
   @Prop({ type: Date })
   report_date: Date;
@@ -32,7 +33,7 @@ export class Report extends Document {
   @Prop()
   reporter: string;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'report_formats' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'ReportFormat' })
   report_format: ReportFormat;
 }
 
