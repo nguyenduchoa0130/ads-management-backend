@@ -21,6 +21,18 @@ export class User {
 
   @Prop({ required: true })
   role: number;
+
+  @Prop()
+  phone: string;
+
+  @Prop()
+  birthday: Date;
+
+  @Prop({required: true})
+  create_by: User
+
+  @Prop({required:true})
+  update_by: User
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

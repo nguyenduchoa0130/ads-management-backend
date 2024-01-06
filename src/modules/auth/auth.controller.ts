@@ -37,7 +37,7 @@ export class AuthController {
       );
     }
 
-    req.role = 1;
+    req.role = 0;
     req.password = await this.authService.hashPassword(req.password);
     return await this.userService.create(req);
   }

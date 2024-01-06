@@ -8,14 +8,14 @@ export class AuthService {
   constructor(
     private jwtService: JwtService,
     private userService: UsersService,
-  ) {}
+  ) { }
 
   //function hash password
   async hashPassword(password: string): Promise<string> {
     return await bcrypt.hash(password, 12);
   }
-  
- //function compare password param with user password in database
+
+  //function compare password param with user password in database
   async comparePassword(
     password: string,
     storePasswordHash: string,
@@ -25,15 +25,13 @@ export class AuthService {
 
   async authentication(username: string, password: string): Promise<any> {
     const user = await this.userService.findOneUsername(username);
-   
-    
     const check = await this.comparePassword(password, user.password);
 
     if (!user || !check) {
       return false;
     }
 
-    return  this.generateToken(user);
+    return this.generateToken(user);
   }
 
   generateToken(user) {
@@ -41,23 +39,23 @@ export class AuthService {
       username: user.username,
       email: user.email,
       _id: user._id,
-     
+      role: user.role
     };
 
-  
 
-    return  { access_token: this.jwtService.sign(payload) };
+
+    return { access_token: this.jwtService.sign(payload) };
 
   }
 
-  decodeToken(token){
+  decodeToken(token) {
     return this.jwtService.decode(token);
   }
-  
+
   async validate(username: string) {
     try {
       const users = await this.userService.findOneUsername(username);
-      
+
       return users;
     } catch (e) {
       return false;

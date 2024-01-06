@@ -1,26 +1,48 @@
-import { IsNotEmpty } from 'class-validator';
+import { Optional } from '@nestjs/common';
+import { IsNotEmpty, IsOptional, isNotEmpty } from 'class-validator';
 import { ObjectId } from 'mongoose';
 
 export class CreateReportDto {
-  @IsNotEmpty()
-  readonly surface: ObjectId;
+  @Optional()
+  space: ObjectId;
+
+  @Optional()
+  surface: ObjectId;
 
   @IsNotEmpty()
-  readonly report_date: Date;
-   @IsNotEmpty()
-  readonly content: string;
-   @IsNotEmpty()
-  readonly email: string;
-   @IsNotEmpty()
-  readonly phone: string;
-   @IsNotEmpty()
-  readonly state: number;
-   @IsNotEmpty()
-  readonly img_url_1: string;
-   @IsNotEmpty()
-  readonly img_url_2: string;
-   @IsNotEmpty()
-  readonly reporter: string;
-   @IsNotEmpty()
-  readonly report_format: ObjectId;
+  object: ObjectId;
+
+  @IsNotEmpty()
+  report_date: Date;
+
+  @IsNotEmpty()
+  reporter: string;
+
+  @IsNotEmpty()
+  content: string;
+
+  @IsOptional()
+  email: string;
+
+  @IsOptional()
+  phone: string;
+
+  @IsNotEmpty()
+  state: number;
+
+  @IsOptional()
+  img_url_1: string;
+
+  @IsOptional()
+  img_url_2: string;
+
+
+  @IsNotEmpty()
+  type: 1
+
+  @IsOptional()
+  method: string
+  
+  @IsNotEmpty()
+  report_format: ObjectId;
 }

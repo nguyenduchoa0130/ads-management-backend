@@ -1,4 +1,4 @@
-import { IsEnum, IsString, MaxLength, IsNotEmpty, IsEmail, isNotEmpty } from 'class-validator';
+import { IsEnum, IsString, MaxLength, IsNotEmpty, IsEmail, isNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -16,10 +16,12 @@ export class CreateUserDto {
   role: number
 
 
+  @IsOptional()
   phone: string
 
-
+  @IsOptional()
   birthday: Date
 
+  @IsNotEmpty()
   email: string;
 }

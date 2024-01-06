@@ -1,35 +1,59 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, Res, Req, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Res, Req, Query, UseInterceptors, UploadedFile, UploadedFiles, NotFoundException } from '@nestjs/common';
 import { ReportService } from './report.service';
 import { Response } from 'express';
 import { CreateReportDto } from './dto/create-report.dto';
 import { UpdateReportDto } from './dto/update-report.dto';
+import { multerConfig } from 'src/config/multer-report.config';
+import { FileFieldsInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 
-@Controller('api/report')
+@Controller('api/reports')
 export class ReportController {
-  constructor(private readonly ReportService: ReportService) {}
+  constructor(private readonly ReportService: ReportService) { }
 
   @Post()
-  async create(@Body() createReportDto: CreateReportDto, @Res() res: Response) {
+  @UseInterceptors(FileFieldsInterceptor([
+    { name: 'file_1', maxCount: 1 },
+    { name: 'file_2', maxCount: 1 },
+  ], multerConfig))
+  async create(@UploadedFiles() files: { file_1?: Express.Multer.File[], file_2?: Express.Multer.File[] }, @Body() createReportDto: CreateReportDto) {
     try {
+
+
+      if (files) {
+        if (files.file_1[0]?.path) {
+          createReportDto.img_url_1 = files.file_1[0]?.path;
+        }
+        if (files.file_2[0]?.path) {
+          createReportDto.img_url_2 = files.file_2[0]?.path;
+        }
+      }
+
+      if (createReportDto.type == 1) {
+        createReportDto.space = createReportDto.object;
+      } else {
+        createReportDto.surface = createReportDto.object;
+      }
+
       const report = await this.ReportService.create(createReportDto);
-      res.json({ responseData: report, message: 'Report created successfully.' });
+      return ({ responseData: report, message: 'Report created successfully.' });
     } catch (error) {
-      res.status(500).json({ responseData: null, message: 'Error creating report.' });
+      throw new NotFoundException('Error creating report.');
     }
   }
 
   @Get()
   async findAll(@Query() req: any, @Res() res: Response) {
     try {
-     const reports = await this.ReportService.findAll(req);
-      
-     res.json({ responseData: reports, message: 'Reports retrieved successfully.' });
+      const reports = await this.ReportService.findAll(req);
+
+      res.json({ responseData: reports, message: 'Reports retrieved successfully.' });
     } catch (error) {
       res.status(500).json({ responseData: null, message: 'Error retrieving reports.' });
     }
   }
 
   @Get(':id')
+
   async findOne(@Param('id') id: string, @Res() res: Response) {
     try {
       const report = await this.ReportService.findOne(id);
@@ -44,17 +68,37 @@ export class ReportController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateReportDto: UpdateReportDto, @Res() res: Response) {
-    try {
-      const updatedReport = await this.ReportService.update(id, updateReportDto);
-      if (updatedReport) {
-        res.json({ responseData: updatedReport, message: 'Report updated successfully.' });
-      } else {
-        res.status(404).json({ responseData: null, message: 'Report not found.' });
+  @UseInterceptors(FileFieldsInterceptor([
+    { name: 'file_1', maxCount: 1 },
+    { name: 'file_2', maxCount: 1 },
+  ], multerConfig))
+  async update(@Param('id') id: string,@UploadedFiles() files: { file_1?: Express.Multer.File[], file_2?: Express.Multer.File[] }, @Body() updateReportDto: UpdateReportDto) {
+    // try {
+
+
+   
+    if (files) {
+
+      if (files?.file_1?.length > 0) {
+        updateReportDto.img_url_1 = files.file_1[0]?.path;
       }
-    } catch (error) {
-      res.status(500).json({ responseData: null, message: 'Error updating report.' });
+      if (files?.file_2?.length > 0) {
+        updateReportDto.img_url_2 = files.file_2[0]?.path;
+      }
     }
+
+
+    const updatedReport = await this.ReportService.update(id, updateReportDto);
+
+
+    if (updatedReport) {
+      return ({ responseData: updatedReport, message: 'Report updated successfully.' });
+    } else {
+      return ({ responseData: null, message: 'Report not found.' });
+    }
+    // } catch (error) {
+    //   res.status(500).json({ responseData: null, message: 'Error updating report.' });
+    // }
   }
 
   @Delete(':id')

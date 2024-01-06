@@ -30,7 +30,7 @@ export class ReportService {
     if(req.search) {
       query = query.where('reporter').regex(new RegExp(req.search, 'i'));
     }
-    return await query.populate('surface report_format').exec();
+    return await query.populate('surface space report_format').exec();
   }
 
   async findOne(id: string): Promise<Report | null> {
