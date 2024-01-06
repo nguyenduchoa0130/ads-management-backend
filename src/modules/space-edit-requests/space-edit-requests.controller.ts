@@ -22,12 +22,15 @@ export class SpaceEditRequestsController {
 
   @Post()
   async create(@Body() createSpaceEditRequestDto: CreateSpaceEditRequestDto) {
+    createSpaceEditRequestDto.state = 1;
     const newSpaceEditRequest = await this.spaceEditRequestsService.create(createSpaceEditRequestDto);
     return { message: 'Space Edit Request created successfully', responseData: newSpaceEditRequest };
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateSpaceEditRequestDto: UpdateSpaceEditRequestDto) {
+    
+    updateSpaceEditRequestDto.state ? updateSpaceEditRequestDto.state : updateSpaceEditRequestDto.state = 2 ;
     const updatedSpaceEditRequest = await this.spaceEditRequestsService.update(id, updateSpaceEditRequestDto);
     return { message: 'Space Edit Request updated successfully', responseData: updatedSpaceEditRequest };
   }

@@ -34,6 +34,9 @@ export class SpaceEditRequest extends Document {
   
   @Prop({ required: true })
   request_date: Date
+
+  @Prop({ required: true })
+  state: number
 }
 
 

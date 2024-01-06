@@ -1,5 +1,5 @@
 // create-surface-edit-request.dto.ts
-import { IsNotEmpty, IsMongoId } from 'class-validator';
+import { IsNotEmpty, IsMongoId, IsString, IsOptional } from 'class-validator';
 
 export class CreateSurfaceEditRequestDto {
   @IsNotEmpty()
@@ -9,16 +9,13 @@ export class CreateSurfaceEditRequestDto {
   lat: string;
 
   @IsNotEmpty()
-  address: string;
-
-  @IsNotEmpty()
   width: number;
 
   @IsNotEmpty()
   height: number;
 
-  @IsNotEmpty()
-  img_url: string;
+  
+  img_url?: string;
 
   @IsNotEmpty()
   reason: string;
@@ -34,6 +31,9 @@ export class CreateSurfaceEditRequestDto {
   @IsNotEmpty()
   surface: string;
 
+  @IsOptional()
+  state: number
+
   @IsNotEmpty()
-  request_date: Date;
+  request_date: string;
 }

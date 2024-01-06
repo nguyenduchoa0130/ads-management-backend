@@ -11,12 +11,12 @@ export class SurfacesController {
   constructor(private readonly surfacesService: SurfacesService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('img_url', multerConfig))
+  @UseInterceptors(FileInterceptor('file', multerConfig))
   async create(@UploadedFile() file, @Body() createSurfaceDto: CreateSurfaceDto) {
 
     if(file){
       createSurfaceDto.img_url = file.path;
-    }else {
+    }else  {
       throw new BadRequestException('img_url not found')
     }
     
@@ -38,12 +38,14 @@ export class SurfacesController {
   }
 
   @Patch(':id')
-  @UseInterceptors(FileInterceptor('img_url', multerConfig))
+  @UseInterceptors(FileInterceptor('file', multerConfig))
   async update(@UploadedFile() file,@Param('id') id: string, @Body() updateSurfaceDto: UpdateSurfaceDto) {
+    
+    if(file?.path) {
+      updateSurfaceDto.img_url = file.path;
+    }
 
-   
-    updateSurfaceDto.img_url = file.path;
-
+    
     const responseData = await this.surfacesService.update(id, updateSurfaceDto);
     return { message: 'Surface updated successfully', responseData: responseData };
   }

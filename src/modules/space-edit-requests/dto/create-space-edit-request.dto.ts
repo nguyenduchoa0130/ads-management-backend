@@ -1,5 +1,5 @@
 // create-space-edit-request.dto.ts
-import { IsNotEmpty, IsMongoId } from 'class-validator';
+import { IsNotEmpty, IsMongoId, isNotEmpty } from 'class-validator';
 
 export class CreateSpaceEditRequestDto {
   @IsNotEmpty()
@@ -32,4 +32,7 @@ export class CreateSpaceEditRequestDto {
   @IsNotEmpty()
   @IsMongoId()
   space: string;
+
+  @IsNotEmpty()
+  state?: number
 }

@@ -1,5 +1,5 @@
 // create-surface.dto.ts
-import { IsNotEmpty, IsString, IsNumber, IsMongoId } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsMongoId, IsOptional } from 'class-validator';
 import { Exclude, Expose } from 'class-transformer';
 
 export class CreateSurfaceDto {
@@ -33,6 +33,7 @@ export class CreateSurfaceDto {
   @IsMongoId()
   space: string;
 
+  @IsOptional()
   img_url: any;
 
   @Exclude()

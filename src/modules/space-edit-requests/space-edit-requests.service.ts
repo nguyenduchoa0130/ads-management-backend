@@ -28,6 +28,8 @@ export class SpaceEditRequestsService {
   }
 
   async update(id: string, updateSpaceEditRequestDto: UpdateSpaceEditRequestDto) {
+
+  
     const existingSpaceEditRequest = await this.spaceEditRequestModel.findByIdAndUpdate(
       id,
       updateSpaceEditRequestDto,

@@ -14,16 +14,16 @@ export class SurfaceEditRequest extends Document{
   lat: string
 
   @Prop({ required: true })
-  address: string
-
-  @Prop({ required: true })
   width: number
 
   @Prop({ required: true })
   height: number
 
-  @Prop({ required: true })
+  @Prop()
   img_url: string
+
+  @Prop({ required: true })
+  state: number
 
   @Prop({ required: true })
   reason: string
