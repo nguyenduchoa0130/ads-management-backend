@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+    h1 {
+      color: #007bff;
+    }
+    strong {
+      color: #28a745;
+    }
+    p {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Xin chào {{reporterName}},</h1>
+
+    <p>Cảm ơn bạn đã báo cáo về vấn đề liên quan đến báo cáo "{{reportType}}".</p>
+
+    <p>Dưới đây là tình trạng và cách thức xử lý của báo cáo:</p>
+
+    <p><strong>Tình trạng xử lý:</strong> {{processingStatus}}</p>
+
+    <p><strong>Phương pháp xử lý:</strong> {{processingMethod}}</p>
+
+    <p>Chúng tôi sẽ tiếp tục theo dõi và cập nhật về tình trạng xử lý của báo cáo của bạn.</p>
+
+    <p>Cảm ơn bạn đã hợp tác!</p>
+  </div>
+</body>
+</html>

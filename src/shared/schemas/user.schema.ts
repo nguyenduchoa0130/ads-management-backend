@@ -1,6 +1,6 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, ObjectId, Schema as SchemaMongoose } from 'mongoose';
 
 
 export type UserDocument = HydratedDocument<User>;
@@ -12,7 +12,8 @@ export type UserDocument = HydratedDocument<User>;
 export class User {
   @Prop({ required: true })
   username: string;
-
+  @Prop({ required: true })
+  name: string;
   @Prop({ required: true })
   email: string;
 
@@ -28,11 +29,14 @@ export class User {
   @Prop()
   birthday: Date;
 
-  @Prop({required: true})
+  @Prop({ required: true, ref: 'User', type: SchemaMongoose.Types.ObjectId })
   create_by: User
 
-  @Prop({required:true})
-  update_by: User
+  @Prop({ required: true, ref: 'User', type: SchemaMongoose.Types.ObjectId })
+  update_by: ObjectId
+
+  @Prop() 
+  otp:string
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

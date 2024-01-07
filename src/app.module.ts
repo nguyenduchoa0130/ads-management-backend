@@ -27,6 +27,7 @@ import { SurfaceEditRequestsModule } from './modules/surface-edit-requests/surfa
 import { ContractsModule } from './modules/contracts/contracts.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { GmailModule } from './modules/gmail/gmail.module';
 
 @Module({
   imports: [
@@ -90,6 +91,7 @@ import { join } from 'path';
       rootPath: join(__dirname, '..', 'public/'),
       serveRoot: '/public',
     }),
+    GmailModule
   ],
   controllers: [],
   providers: [],

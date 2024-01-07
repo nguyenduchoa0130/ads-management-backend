@@ -14,7 +14,6 @@ export class AuthController {
   @UseGuards(LocalStrategy)
   @Post('api/login')
   async login(@Body() req) {
-
     return await this.authService.authentication(req.username, req.password);
   }
 
@@ -41,5 +40,26 @@ export class AuthController {
     req.password = await this.authService.hashPassword(req.password);
     return await this.userService.create(req);
   }
+  @Post('api/verify-username')
+  async verifyUsername(@Body() req) { 
+    if(req.username) {
+      const send = await this.authService.createOTP(req.username);
+      return { message: 'Kiểm tra email của bạn và nhập mã OTP'};
+    }
+    return { message: 'Kiểm tra email của bạn và nhập mã OTP'};
 
+  }
+  @Post('api/reset-password')
+  async resetPassword(@Body() req) { 
+    console.log(req);
+    if(req.username) {
+      const send = await this.authService.resetPassword(req.username, req.password, req.otp);
+      if(send) {
+        return { message: 'Thay đổi mật khẩu thành công', responseData:send};
+      }
+      
+    }
+    return { message: 'Kiểm tra email của bạn và nhập mã OTP'};
+
+  }
 }

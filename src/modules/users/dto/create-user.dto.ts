@@ -12,7 +12,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   role: number
 
 
@@ -24,4 +24,10 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   email: string;
+
+  @IsOptional()
+  create_by
+  
+  @IsOptional()
+  update_by
 }
