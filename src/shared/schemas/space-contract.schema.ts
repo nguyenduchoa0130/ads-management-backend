@@ -1,12 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { Company } from './company.schema';
 
 
-@Schema({ timestamps: true , collection: 'surface-contracts'})
-export class Contract extends Document {
-  @Prop({ required: true, type: mongoose.Types.ObjectId, ref: 'Surface' })
-  surface: string;
+@Schema({ timestamps: true , collection: 'space-contracts'})
+export class SpaceContract extends Document {
+  @Prop({ required: true, type: mongoose.Types.ObjectId, ref: 'Space' })
+  space: string;
 
   @Prop({  required: true })
   content: string;
@@ -35,4 +34,4 @@ export class Contract extends Document {
 }
 
 
-export const ContractSchema = SchemaFactory.createForClass(Contract);
+export const SpaceContractSchema = SchemaFactory.createForClass(SpaceContract);

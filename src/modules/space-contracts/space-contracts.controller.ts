@@ -1,10 +1,10 @@
 // contracts.controller.ts
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { ContractsService } from './contracts.service';
+import { ContractsService } from './space-contracts.service';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
 
-@Controller('api/surface-contracts')
+@Controller('api/space-contracts')
 export class ContractsController {
   constructor(private readonly contractsService: ContractsService) {}
 

@@ -28,6 +28,7 @@ export class AuthService {
 
   async authentication(username: string, password: string): Promise<any> {
     const user = await this.userService.findOneUsername(username);
+   
     const check = await this.comparePassword(password, user.password);
 
     if (!user || !check) {
@@ -60,7 +61,7 @@ export class AuthService {
       return false;
     }
     const passwordHash = await this.hashPassword(password);
-    return  (await this.userService.update(user._id.toString(), { password: passwordHash })).save();
+    return  (await this.userService.update(user._id.toString(), { password: passwordHash, otp: null })).save();
   }
   generateToken(user) {
     const payload: AuthPayload = {

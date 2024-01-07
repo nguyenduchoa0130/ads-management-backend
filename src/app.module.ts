@@ -28,6 +28,7 @@ import { ContractsModule } from './modules/contracts/contracts.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { GmailModule } from './modules/gmail/gmail.module';
+import { SpaceContractsModule } from './modules/space-contracts/space-contracts.module';
 
 @Module({
   imports: [
@@ -91,7 +92,9 @@ import { GmailModule } from './modules/gmail/gmail.module';
       rootPath: join(__dirname, '..', 'public/'),
       serveRoot: '/public',
     }),
-    GmailModule
+    GmailModule,
+    SpaceContractsModule
+    
   ],
   controllers: [],
   providers: [],

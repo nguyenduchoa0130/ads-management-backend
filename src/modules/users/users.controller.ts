@@ -54,6 +54,8 @@ export class UsersController {
 
     if(updateUserDto.password) {
       updateUserDto.password = await this.authService.hashPassword(updateUserDto.password);
+    }else {
+      delete updateUserDto['password'];
     }
     const updatedUser = await this.usersService.update(id, updateUserDto);
 

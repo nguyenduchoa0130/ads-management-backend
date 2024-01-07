@@ -17,7 +17,7 @@ export class User {
   @Prop({ required: true })
   email: string;
 
-  @Prop({ required: true })
+  @Prop()
   password: string;
 
   @Prop({ required: true })
@@ -29,10 +29,10 @@ export class User {
   @Prop()
   birthday: Date;
 
-  @Prop({ required: true, ref: 'User', type: SchemaMongoose.Types.ObjectId })
-  create_by: User
+  @Prop({ ref: 'User', type: SchemaMongoose.Types.ObjectId })
+  create_by: ObjectId
 
-  @Prop({ required: true, ref: 'User', type: SchemaMongoose.Types.ObjectId })
+  @Prop({ ref: 'User', type: SchemaMongoose.Types.ObjectId })
   update_by: ObjectId
 
   @Prop() 

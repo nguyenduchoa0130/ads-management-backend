@@ -4,20 +4,20 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
-import { Contract } from 'src/shared/schemas/contract.schema';
+import { SpaceContract } from 'src/shared/schemas/space-contract.schema';
 
 @Injectable()
 export class ContractsService {
   constructor(
-    @InjectModel(Contract.name) private readonly contractModel: Model<Contract>,
+    @InjectModel(SpaceContract.name) private readonly contractModel: Model<SpaceContract>,
   ) {}
 
   findAll() {
-    return this.contractModel.find().populate('surface').exec();
+    return this.contractModel.find().populate('space').exec();
   }
 
   findOne(id: string) {
-    return this.contractModel.findById(id).populate('surface').exec();
+    return this.contractModel.findById(id).populate('space').exec();
   }
 
   create(createContractDto: CreateContractDto) {
@@ -30,7 +30,7 @@ export class ContractsService {
       id,
       updateContractDto,
       { new: true },
-    ).populate('surface company').exec();
+    ).populate('space').exec();
 
     if (!existingContract) {
       throw new NotFoundException(`Contract with id ${id} not found`);

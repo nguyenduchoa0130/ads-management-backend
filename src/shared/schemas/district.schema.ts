@@ -8,11 +8,7 @@ export class District extends Document {
   @Prop({ type: String, required: true, unique: true })
   name: string;
 
-  @Prop({ type: Number, required: true })
-  lng: number;
 
-  @Prop({ type: Number, required: true })
-  lat: number;
 
   @Prop({ type: [{ type: mongoose.Types.ObjectId, ref: 'Ward' }] })
   wards: Ward[];

@@ -5,13 +5,16 @@ import { IsNotEmpty, IsMongoId, IsDate, IsDateString, IsOptional } from 'class-v
 export class CreateContractDto {
   @IsNotEmpty()
   @IsMongoId()
-  surface: string;
+  space: string;
 
   @IsNotEmpty()
   content: string;
 
   @IsNotEmpty()
   company: string;
+
+  @IsNotEmpty()
+  start_date: Date;
 
   @IsOptional()
   email: string;
@@ -21,9 +24,6 @@ export class CreateContractDto {
 
   @IsOptional()
   state: number;
-  
-  @IsNotEmpty()
-  start_date: Date;
 
   @IsNotEmpty()
   end_date: Date;

@@ -17,7 +17,7 @@ export class GmailService {
 
   public async sendMail(to: string, subject: string, template: string, context: {}) {
     await this.setTransport();
-    console.log(context);
+    
     this.mailerService
       .sendMail({
         transporterName: 'gmail',

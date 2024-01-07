@@ -8,7 +8,7 @@ import { FileFieldsInterceptor, FileInterceptor, FilesInterceptor } from '@nestj
 
 @Controller('api/reports')
 export class ReportController {
-  constructor(private readonly ReportService: ReportService) { }
+  constructor(private readonly ReportService: ReportService,) { }
 
   @Post()
   @UseInterceptors(FileFieldsInterceptor([
@@ -72,11 +72,11 @@ export class ReportController {
     { name: 'file_1', maxCount: 1 },
     { name: 'file_2', maxCount: 1 },
   ], multerConfig))
-  async update(@Param('id') id: string,@UploadedFiles() files: { file_1?: Express.Multer.File[], file_2?: Express.Multer.File[] }, @Body() updateReportDto: UpdateReportDto) {
+  async update(@Param('id') id: string, @UploadedFiles() files: { file_1?: Express.Multer.File[], file_2?: Express.Multer.File[] }, @Body() updateReportDto: UpdateReportDto) {
     // try {
 
 
-   
+
     if (files) {
 
       if (files?.file_1?.length > 0) {
@@ -92,6 +92,8 @@ export class ReportController {
 
 
     if (updatedReport) {
+      
+      
       return ({ responseData: updatedReport, message: 'Report updated successfully.' });
     } else {
       return ({ responseData: null, message: 'Report not found.' });
